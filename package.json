@@ -1,10 +1,10 @@
 {
   "private": true,
   "name": "roshambo-starter",
-  "homepage": "https://roshambo-starter-elizabethtiller.netlify.com",
+  "homepage": "https://lizthrilla-roshambo.netlify.com",
   "scripts": {
     "deploy": "netlify deploy --prod --dir=public",
-    "postdeploy": "echo 'Your site was deployed to https://roshambo-starter-elizabethtiller.netlify.com'",
+    "postdeploy": "echo 'Your site was deployed to https://lizthrilla-roshambo.netlify.com'",
     "start": "browser-sync start --server public --files public"
   },
   "devDependencies": {
