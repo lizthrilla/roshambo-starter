@@ -2,6 +2,7 @@ const $ = s => document.querySelector(s)
 const $$ = s => document.querySelectorAll(s)
 
 const handleButtonClick = (event) => {
+  console.log('clicked')
   const player = event.target.className
   const computer = getComputerMove()
   $('figure.player img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${player}.svg`
@@ -33,6 +34,7 @@ const resetGame = () => {
 }
 
 const main = () => {
+  console.log('started')
   const buttons = $$('.player-input button')
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', handleButtonClick)
