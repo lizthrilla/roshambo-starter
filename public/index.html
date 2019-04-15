@@ -8,7 +8,35 @@
     <link rel="stylesheet" href="/screen.css">
   </head>
   <body>
-    <h1 class='hello-world'></h1>
-    <script src="/main.js" charset="utf-8"></script>
+    <main>
+      <h1>Ro! Sham! Bo!</h1>
+      <section>
+        <figure class="player">
+          <figcaption>Player</figcaption>
+          <img src="https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg" alt="Player Move" height="200" width="200">
+        </figure>
+        <div class="scores">
+          <span class="player">0</span>
+          :
+          <span class="computer">0</span>
+        </div>
+        <figure class="computer">
+          <figcaption>Computer</figcaption>
+          <img src="https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg" alt="Computer Move" height="200" width="200">
+        </figure>
+      </section>
+      <p>Choose your weapon wisely.</p>
+      <ul class="player-input">
+        <li><button class="rock">Rock</button></li>
+        <li><button class="paper">Paper</button></li>
+        <li><button class="scissors">Scissors</button></li>
+      </ul>
+    </main>
+    <div class="overlay">
+      <div class="dialog">
+        <h3>!!!</h3>
+        <button>Play Again</button>
+      </div>
+    </div>
   </body>
 </html>
