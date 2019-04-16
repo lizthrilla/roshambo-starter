@@ -2,11 +2,26 @@ const $ = s => document.querySelector(s)
 const $$ = s => document.querySelectorAll(s)
 
 const handleButtonClick = (event) => {
-  console.log('clicked')
   const player = event.target.className
   const computer = getComputerMove()
+  console.log(player, computer)
   $('figure.player img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${player}.svg`
   $('figure.computer img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${computer}.svg`
+
+  // rules for how player wins
+  if ((player === 'rock' && computer === 'scissors') || (player === 'scissors' && computer === 'paper') || (player === 'paper' || computer === 'rock')) {
+    console.log('player wins')
+  }
+
+  // rules for how player loses
+  if ((computer === 'rock' && player === 'scissors') || (computer === 'scissors' && player === 'paper') || (computer === 'paper' && player === 'rock')) {
+    console.log('player loses')
+  }
+
+  // if player === computer it's a draw
+  if (player === computer) {
+    console.log('draw')
+  }
 
   // HINT: Check for win, lose or draw, then call `gameOver()` eventually.
 }
