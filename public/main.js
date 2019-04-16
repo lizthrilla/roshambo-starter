@@ -4,7 +4,6 @@ const $$ = s => document.querySelectorAll(s)
 const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
-  console.log(player, computer)
   $('figure.player img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${player}.svg`
   $('figure.computer img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${computer}.svg`
 
