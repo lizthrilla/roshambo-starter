@@ -1,6 +1,9 @@
 const $ = s => document.querySelector(s)
 const $$ = s => document.querySelectorAll(s)
 
+let playerScore = 0
+let computerScore = 0
+
 const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
@@ -8,20 +11,27 @@ const handleButtonClick = (event) => {
   $('figure.computer img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${computer}.svg`
 
   // rules for how player wins
-  if ((player === 'rock' && computer === 'scissors') || (player === 'scissors' && computer === 'paper') || (player === 'paper' || computer === 'rock')) {
-    console.log('player wins')
+  if ((player === 'rock' && computer === 'scissors') || (player === 'scissors' && computer === 'paper') || (player === 'paper' && computer === 'rock')) {
+    playerScore += 1
+    $('.scores .player').textContent = playerScore
+    if (playerScore === 3) {
+      gameOver(true)
+    }
   }
 
-  // rules for how player loses
+  // rules for how computer wins
   if ((computer === 'rock' && player === 'scissors') || (computer === 'scissors' && player === 'paper') || (computer === 'paper' && player === 'rock')) {
-    console.log('player loses')
+    computerScore += 1
+    $('.scores .computer').textContent = computerScore
+    if (computerScore === 3) {
+      gameOver(false)
+    }
   }
 
   // if player === computer it's a draw
   if (player === computer) {
     console.log('draw')
   }
-
   // HINT: Check for win, lose or draw, then call `gameOver()` eventually.
 }
 
@@ -45,10 +55,13 @@ const resetGame = () => {
   $('figure.player img').src = 'https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg'
   $('figure.computer img').src = 'https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg'
   $('body').className = ''
+  playerScore = 0
+  computerScore = 0
+  $('.scores .computer').textContent = computerScore
+  $('.scores .player').textContent = playerScore
 }
 
 const main = () => {
-  console.log('started')
   const buttons = $$('.player-input button')
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', handleButtonClick)
