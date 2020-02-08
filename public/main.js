@@ -4,44 +4,93 @@ const $$ = s => document.querySelectorAll(s)
 let playerEngagementScore = 0
 let computerEngagementScore = 0
 
-let playerTextScore = $('.scores .player')
+const playerEngagementText = $('.scores .player')
+const computerEngagementText = $('.scores .computer')
 
 let playerBoutScore = 0
 let computerBoutScore = 0
 
-const updatePlayerScore = () => {
-  playerEngagementScore += 1
-  $('.scores .player').textContent = playerEngagementScore
-  if (playerEngagementScore === 2) {
-    playerBoutScore += 1
-    $('.bout .player').textContent = playerBoutScore
-    playerEngagementScore = 0
-    $('.scores .player').textContent = playerEngagementScore
-    computerEngagementScore = 0
-    $('.scores .computer').textContent = computerEngagementScore
+const playerBoutText = $('.bout .player')
+const computerBoutText = $('.bout .computer')
 
-    if (playerBoutScore === 2) {
-      gameOver(true)
+const resetEngagement = () => {
+  // reset player score
+  playerEngagementScore = 0
+  playerEngagementText.textContent = playerEngagementScore
+  // reset computer score
+  computerEngagementScore = 0
+  computerEngagementText.textContent = computerEngagementScore
+}
+
+const updateBoutScores = (player) => {
+  if (player) {
+    playerBoutText.textContent = playerBoutScore += 1
+  } else {
+    computerBoutText.textContent = computerBoutScore += 1
+  }
+  resetEngagement()
+}
+
+const updateScores = (playerOrComputer) => {
+  if (playerOrComputer === 'player') {
+    playerEngagementText.textContent = playerEngagementScore += 1
+    $('figure.player').className = 'player win'
+    $('figure.computer').className = 'computer lose'
+    // check if player has 2 engagements
+    if (playerEngagementScore === 2) {
+      // update player bout score
+      updateBoutScores(true)
+      // reset engagement scores
+      // check if player bout score === 2
+      if (playerBoutScore === 2) {
+        gameOver(true)
+      }
+    }
+  } else if (playerOrComputer === 'computer') {
+    // change computer engagement score
+    computerEngagementText.textContent = computerEngagementScore += 1
+    $('figure.player').className = 'player lose'
+    $('figure.computer').className = 'computer win'
+    // check if computer engagement === 2
+    if (computerEngagementScore === 2) {
+      // change computer bout score
+      updateBoutScores(false)
+      // game over if computer bout === 2
+      if (computerBoutScore === 2) {
+        gameOver(false)
+      }
     }
   }
 }
 
-const updateComputerScore = () => {
-  computerEngagementScore += 1
-  $('.scores .computer').textContent = computerEngagementScore
-  if (computerEngagementScore === 2) {
-    computerBoutScore += 1
-    $('.bout .computer').textContent = computerBoutScore
-    playerEngagementScore = 0
-    $('.scores .player').textContent = playerEngagementScore
-    computerEngagementScore = 0
-    $('.scores .computer').textContent = computerEngagementScore
+// const updatePlayerEngagement = () => {
+//   // change score
+//   playerEngagementText.textContent = playerEngagementScore += 1
+//   // check if player has 2 engagements
+//   if (playerEngagementScore === 2) {
+//     // update player bout score
+//     updateBoutScores(true)
+//     // reset engagement scores
+//     // check if player bout score === 2
+//     if (playerBoutScore === 2) {
+//       gameOver(true)
+//     }
+//   }
+// }
 
-    if (computerBoutScore === 2) {
-      gameOver(false)
-    }
-  }
-}
+// const updateComputerEngagement = () => {
+//   // change computer engagement score
+//   computerEngagementText.textContent = computerEngagementScore += 1
+//   // check if computer engagement === 2
+//   if (computerEngagementScore === 2) {
+//     // change computer bout score
+//     updateBoutScores(false)
+//     // game over if computer bout === 2
+//     if (computerBoutScore === 2) {
+//       gameOver(false)
+//     }
+//   }
+// }
 
 const handleButtonClick = (event) => {
   const player = event.target.className
@@ -50,11 +99,12 @@ const handleButtonClick = (event) => {
   $('figure.computer img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${computer}.svg`
 
   if ((player === 'rock' && computer === 'scissors') || (player === 'scissors' && computer === 'paper') || (player === 'paper' && computer === 'rock')) {
-    updatePlayerScore()
+    updateScores('player')
   } else if ((computer === 'rock' && player === 'scissors') || (computer === 'scissors' && player === 'paper') || (computer === 'paper' && player === 'rock')) {
-    updateComputerScore()
+    updateScores('computer')
   } else {
-    console.log("it's a tie!")
+    $('figure.player').className = 'player draw'
+    $('figure.computer').className = 'computer draw'
   }
 }
 
@@ -74,14 +124,11 @@ const gameOver = (didPlayerWin) => {
 
 const resetGame = () => {
   // TODO: Probably need to do more to reset the game here...
-  playerEngagementScore = 0
-  computerEngagementScore = 0
+  resetEngagement()
   playerBoutScore = 0
   computerBoutScore = 0
-  $('.scores .computer').textContent = computerEngagementScore
-  $('.scores .player').textContent = playerEngagementScore
-  $('.bout .player').textContent = playerBoutScore
-  $('.bout .computer').textContent = computerBoutScore
+  playerBoutText.textContent = playerBoutScore
+  computerBoutText.textContent = computerBoutScore
   $('figure.player img').src = 'https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg'
   $('figure.computer img').src = 'https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/unknown.svg'
   $('body').className = ''
@@ -92,7 +139,6 @@ const main = () => {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', handleButtonClick)
   }
-  playerTextScore.textContent = playerEngagementScore
 
   $('.dialog button').addEventListener('click', resetGame)
 }
