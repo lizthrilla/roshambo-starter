@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "roshambo-starter",
+  "name": "feb-test-drives",
   "homepage": "https://lizthrilla-roshambo.netlify.com",
   "scripts": {
     "deploy": "netlify deploy --prod --dir=public",
