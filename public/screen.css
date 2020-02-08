@@ -70,8 +70,22 @@ figure.draw img {
 .scores {
   font-size: 5vw;
   display: flex;
+  flex-direction: column;
 }
 
+.scores p {
+  font-size: 20px;
+}
+
+.engagement {
+  display: flex; 
+  flex-direction: row;
+}
+
+.bout {
+  display: flex;
+  flex-direction: row;
+}
 .scores span {
   font-size: 5vw;
   display: block;
